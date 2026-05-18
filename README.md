@@ -9,6 +9,9 @@ Sistema de gerenciamento de uma oficina mecânica, contemplando o controle
 de clientes, veículos, mecânicos, ordens de serviço, peças e serviços, 
 com módulo de autenticação e gerenciamento de usuários.
 
+## 🗄️ Diagrama do Banco de Dados
+![Diagrama](docs/Diagrama_grupo05.png)
+
 ## 🗄️ Estrutura do banco de dados
 
 O banco `oficina` é composto pelas seguintes tabelas:
