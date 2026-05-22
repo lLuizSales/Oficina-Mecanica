@@ -26,7 +26,7 @@ if ($method === 'GET') {
     exit;
 }
 
-// ───── Operações abaixo: somente administrador ─────
+
 if ($perfil !== 'administrador') {
     http_response_code(403);
     echo json_encode(['erro' => 'Apenas administradores podem realizar esta ação.']);
@@ -35,7 +35,7 @@ if ($perfil !== 'administrador') {
 
 $dados = json_decode(file_get_contents('php://input'), true) ?? [];
 
-// ───── POST — cadastrar novo usuário ─────
+
 if ($method === 'POST') {
     foreach (['nome', 'documento', 'perfil', 'senha'] as $campo) {
         if (empty($dados[$campo])) {
@@ -78,7 +78,7 @@ if ($method === 'POST') {
     exit;
 }
 
-// ───── PUT — editar usuário ─────
+
 if ($method === 'PUT') {
     $id = intval($dados['id'] ?? 0);
     if (!$id || empty($dados['nome']) || empty($dados['documento']) || empty($dados['perfil'])) {
@@ -101,7 +101,7 @@ if ($method === 'PUT') {
     exit;
 }
 
-// ───── DELETE — excluir usuário ─────
+
 if ($method === 'DELETE') {
     $id = intval($dados['id'] ?? 0);
     if (!$id) {

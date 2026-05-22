@@ -174,7 +174,6 @@ $nomeSessao   = htmlspecialchars($_SESSION['nome']);
 
 </main>
 
-<!-- Modal: Novo / Editar Usuário -->
 <div id="modal-usuario" class="modal-overlay">
     <div class="modal">
         <h3 id="modal-titulo">Novo Usuário</h3>
@@ -226,8 +225,6 @@ function badgePerfil(perfil) {
     return `<span class="badge ${classes[perfil] || ''}">${labels[perfil] || perfil}</span>`;
 }
 
-// ── Listar ──────────────────────────────────────────────────────
-
 function carregarUsuarios() {
     fetch(CONTROLLER)
         .then(r => r.json())
@@ -260,8 +257,6 @@ function carregarUsuarios() {
         .catch(() => mostrarMsg("msg-lista", "Erro ao carregar usuários.", "err"));
 }
 
-// ── Modal ───────────────────────────────────────────────────────
-
 function abrirModalNovo() {
     document.getElementById("modal-titulo").textContent = "Novo Usuário";
     document.getElementById("modal-id").value  = "";
@@ -293,7 +288,6 @@ document.getElementById("modal-usuario").addEventListener("click", function(e) {
     if (e.target === this) fecharModal();
 });
 
-// ── Salvar ──────────────────────────────────────────────────────
 
 function salvarUsuario() {
     const id     = document.getElementById("modal-id").value;
@@ -339,7 +333,6 @@ function salvarUsuario() {
     .finally(() => { btn.disabled = false; });
 }
 
-// ── Excluir ─────────────────────────────────────────────────────
 
 function excluirUsuario(id, nome) {
     if (!confirm(`Excluir o usuário "${nome}"?\nEsta ação não pode ser desfeita.`)) return;
@@ -361,8 +354,6 @@ function excluirUsuario(id, nome) {
     .catch(() => mostrarMsg("msg-lista", "Erro de conexão.", "err"));
 }
 
-// ── Logout ──────────────────────────────────────────────────────
-
 function fazerLogout() {
     if (!confirm("Deseja sair do sistema?")) return;
     fetch("../controllers/logoutcontroller.php", { method: "POST" })
@@ -370,8 +361,6 @@ function fazerLogout() {
         .then(data => { if (data.sucesso) window.location.href = "login.php"; })
         .catch(() => { window.location.href = "login.php"; });
 }
-
-// ── Init ─────────────────────────────────────────────────────────
 
 if (perfilSessao === "administrador" || perfilSessao === "gerencia") {
     carregarUsuarios();
