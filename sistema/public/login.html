@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Oficina Mecânica — Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f0f0; }
+        .box { background: white; padding: 40px; border-radius: 8px; width: 300px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        input { display: block; width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #f5a623; border: none; color: white; cursor: pointer; font-size: 16px; border-radius: 4px; }
+        #erro { color: red; text-align: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>Oficina Mecânica</h2>
+    <input type="text"     id="documento" placeholder="CPF/CNPJ">
+    <input type="password" id="senha"     placeholder="Senha">
+    <button onclick="fazerLogin()">Entrar</button>
+    <p id="erro"></p>
+</div>
+
+<script>
+function fazerLogin() {
+    fetch('../controllers/AuthController.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            acao: 'login',
+            documento: document.getElementById('documento').value,
+            senha: document.getElementById('senha').value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.sucesso) {
+            window.location.href = 'dashboard.html';
+        } else {
+            document.getElementById('erro').textContent = data.erro;
+        }
+    });
+}
+</script>
+</body>
+</html>
