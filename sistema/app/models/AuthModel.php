@@ -15,6 +15,8 @@ function login($documento, $senha) {
     $usuario = $result->fetch_assoc();
 
     if ($usuario && password_verify($senha, $usuario['senha'])) {
+        session_regenerate_id(true);
+
         $_SESSION['id']     = $usuario['ID_cliente'];
         $_SESSION['nome']   = $usuario['nome'];
         $_SESSION['perfil'] = $usuario['perfil'];
@@ -24,12 +26,16 @@ function login($documento, $senha) {
         http_response_code(401);
         echo json_encode(["erro" => "Documento ou senha incorretos."]);
     }
+    
+    $stmt->close();
 }
 
 function logout() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    session_unset();
     session_destroy();
     echo json_encode(["sucesso" => true]);
 }
+?>
